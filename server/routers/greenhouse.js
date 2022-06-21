@@ -1,8 +1,12 @@
 import express  from "express";
-import { getAllGreenHouse } from "../controller/greenhouse.js";
-const router = express.Router();
+import { getAllGreenHouse, addNewGreenHouse } from "../controller/greenhouse.js";
+const greenHouseRouter = express.Router();
 
-router.get('/', getAllGreenHouse)
+greenHouseRouter.get('/', getAllGreenHouse);
+greenHouseRouter.post('/', addNewGreenHouse);
+greenHouseRouter.put();
+greenHouseRouter.delete()
+
 
 
 export default router;
