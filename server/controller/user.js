@@ -46,7 +46,8 @@ export const addNewUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const removedUser = await User.deleteOne({_id: req.params._id})
+        const id = req.body._id;
+        const removedUser = await User.deleteOne({_id: id})
         res.json({
             success: true,
             message: "Successful",
@@ -64,31 +65,18 @@ export const deleteUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-        const updatedUser = await User.updateOne(
-                { _id: req.params._id}, 
-                {
-                    $set:
-                    {
-                        name: req.body.name,
-                        email: req.body.email,
-                        address: req.body.address,
-                        phone: req.body.phone,
-                        password: req.body.password
-                    }
-                }
-                )
+        const id = req.body._id;
+        const modifiedUser = req.body;
+        await User.updateOne({ _id: id }, { $set: modifiedUser });
         res.json({
-            success: true, 
-            message: "Update successful",
-            content: updatedUser
-        })
-    }
-    catch(err) {
+          success: true,
+          data: modifiedUser,
+        });
+      } catch (err) {
         res.json({
-            success: false,
-            message: "Update fail",
-            content: err
-        })
-    }
+          success: false,
+          message: "Failed to modified",
+        });
+      }
 }
 
