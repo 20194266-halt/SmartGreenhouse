@@ -10,7 +10,8 @@ const greenHouseSchema = mongoose.Schema({
         require: true
     },
     areage: {
-        type: Number
+        type: Number,
+        require: false
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,5 +1,5 @@
 import GreenHouse from '../model/greenHouseModel.js';
-import express from 'express';
+
 export const getAllGreenHouse = async (req, res) =>{
     try {
         const greenHouses = await GreenHouse.find();
@@ -40,4 +40,39 @@ export const addNewGreenHouse = async (req, res) => {
             content: err
         })
     }
+}
+export const deleteGreenHouse = async (req, res) => {
+    try {
+        const id = req.body._id;
+        const removedGreenHouse = await GreenHouse.deleteOne({_id: id})
+        res.json({
+            success: true,
+            message: "Successful",
+            content: removedGreenHouse
+        })
+    }
+    catch (err){
+        res.json({
+            success: false,
+            message: "Not successful",
+            content: err
+        })
+    }
+}
+
+export const updateGreenHouse = async (req, res) => {
+    try {
+        const id = req.body._id;
+        const modifiedGreenHouse = req.body;
+        await GreenHouse.updateOne({ _id: id }, { $set: modifiedGreenHouse });
+        res.json({
+          success: true,
+          data: modifiedGreenHouse,
+        });
+      } catch (err) {
+        res.json({
+          success: false,
+          message: "Failed to modified",
+        });
+      }
 }

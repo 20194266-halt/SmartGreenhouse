@@ -1,6 +1,6 @@
-const mongooes = require('mongoose');
+import mongoose from "mongoose";
 
-const deviceSchema = mongooes.Schema({
+const deviceSchema = mongoose.Schema({
     name: {
         type: String,
         require: true
@@ -15,15 +15,15 @@ const deviceSchema = mongooes.Schema({
     },
     value: {
         type: Number,
-        require: true
+        require: false
     }, 
     greenHouseId: {
-        type: mongooes.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         require: true,
         ref: 'GreenHouse'
     }
 })
 
-const Device = mongooes.Schema('Device', deviceSchema);
+const Device = mongoose.model('Device', deviceSchema);
 
-module.exports() = Device;
+export default Device

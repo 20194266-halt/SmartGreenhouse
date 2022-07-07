@@ -3,6 +3,8 @@ import bodyParser from "body-parser"
 import cors from "cors"
 //import router from "./routers/greenhouse.js";
 import userRouter from "./routers/user.js";
+import greenHouseRouter from "./routers/greenhouse.js";
+import deviceRouter from "./routers/device.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -15,7 +17,8 @@ app.use(cors())
 
 //app.use('/', router)
 app.use('/user', userRouter)
-
+app.use('green-house', greenHouseRouter)
+app.use('device', deviceRouter)
 mongoose
     .connect(URI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{
