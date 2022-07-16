@@ -1,10 +1,11 @@
 import express  from "express";
-import { getDeviceValue, addNewDevice, updateDevice, deleteDevice } from "../controller/device.js";
+import { getValueOfDevice,getAllDevice, getDeviceValue, addNewDevice, updateDeviceProps, deleteDevice,  } from "../controller/device.js";
 const deviceRouter = express.Router();
 
-deviceRouter.get('/device', getDeviceValue);
-deviceRouter.post('/device', addNewDevice);
-deviceRouter.put('/device/:id', updateDevice);
-deviceRouter.delete('/device/:id', deleteDevice);
+deviceRouter.get('/', getAllDevice)
+deviceRouter.post('/', addNewDevice);
+deviceRouter.get('/:id', getDeviceValue);
+deviceRouter.put('/:id', updateDeviceProps);
+deviceRouter.delete('/:id', deleteDevice);
 
 export default deviceRouter;

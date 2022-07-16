@@ -54,6 +54,7 @@ export const register =  (req, res) => {
         })
         try {
             const savedUser = await newUser.save();
+            console.log(savedUser)
             res.json({
                 success: true,
                 message: 'Add user Successful',
@@ -105,7 +106,7 @@ export const login = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const id = req.body._id;
+        const id = req.params.id;
         const removedUser = await User.deleteOne({_id: id})
         res.json({
             success: true,

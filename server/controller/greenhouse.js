@@ -23,7 +23,8 @@ export const addNewGreenHouse = async (req, res) => {
         name: req.body.name,
         address: req.body.address,
         areage: req.body.areage,
-        userId: req.user.id
+        device: req.body.device,
+        userId: req.body.userId
     })
     try {
         const savedGreenHouse = await newGreenHouse.save();
@@ -73,6 +74,24 @@ export const updateGreenHouse = async (req, res) => {
         res.json({
           success: false,
           message: "Failed to modified",
+        });
+      }
+}
+
+export const addDevice = async (req, res) => {
+    try {
+        const id = req.body._id;
+        const newDevice = req.body;
+        console.log(newDevice)
+        await GreenHouse.updateOne({ _id: id }, {  $push: { device: newDevice.device[0] }  });
+        res.json({
+          success: true,
+          data: newDevice,
+        });
+      } catch (err) {
+        res.json({
+          success: false,
+          message: "Failed to modified"+err,
         });
       }
 }

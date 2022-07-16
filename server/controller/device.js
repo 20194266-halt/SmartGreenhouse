@@ -2,11 +2,47 @@ import Device from '../model/deviceModel.js';
 
 export const getDeviceValue = async (req, res) => {
     try {
-        const user = await Device.findById(req.params.id);
+        const device = await Device.findById(req.params.id);
         res.json({
             success: true,
             message: "Successfull",
-            content: user
+            content: device
+        })
+    }
+    catch (err) {
+        res.json({
+            success: false,
+            message: 'Not succesful',
+            content: err
+        })
+    }
+}
+export const getAllDevice = async (req, res) =>{
+    try {
+        const allDevice = await Device.find();
+        res.json({
+            success: true,
+            message: 'Successful',
+            content: allDevice
+        })
+    }
+    catch(err){
+        res.json({
+            success: false,
+            message: 'Not successful',
+            content: err
+        })
+    }
+}
+
+export const getValueOfDevice = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const lastDeviceStatus = await Device.find({_id: id},{status: 1});
+        res.json({
+            success: true,
+            message: "Successfull",
+            content: lastDeviceStatus
         })
     }
     catch (err) {
@@ -19,12 +55,13 @@ export const getDeviceValue = async (req, res) => {
 }
 
 export const addNewDevice = async (req, res) => {
-    const newDevice = new User({
+    const newDevice = new Device({
         name: req.body.name,
         status: req.body.status, 
         type: req.body.type,
-        value: req.body.value, 
-        greenHouseId: req.body.getUserById
+        temp: req.body.temp, 
+        moiture: req.body.moiture,
+        greenHouseId: req.body.greenHouseId
     })
     try {
         const savedDevice = await newDevice.save();
@@ -62,7 +99,7 @@ export const deleteDevice = async (req, res) => {
     }
 }
 
-export const updateDevice = async (req, res) => {
+export const updateDeviceProps = async (req, res) => {
     try {
         const id = req.body.id;
         const modifiedDevice = req.body;
@@ -74,7 +111,7 @@ export const updateDevice = async (req, res) => {
       } catch (err) {
         res.json({
           success: false,
-          message: "Failed to modified",
+          message: "Failed to modified properties",
         });
       }
 }
